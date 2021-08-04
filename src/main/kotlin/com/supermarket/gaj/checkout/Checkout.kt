@@ -1,15 +1,17 @@
 package com.supermarket.gaj.checkout
 
 import com.supermarket.gaj.item.Item
-import com.supermarket.gaj.item.SKU
-import com.supermarket.gaj.promotion.BuyTwoForOnePound
+import com.supermarket.gaj.promotion.Promotion
 import java.math.BigDecimal
 import java.math.RoundingMode
 
 class Checkout(
-    private val items: MutableList<Item> = mutableListOf()
+    private val items: MutableList<Item> = mutableListOf(),
+    private val discounts: MutableList<Promotion> = mutableListOf()
 ) {
     fun scan(item: Item) = items.add(item)
+
+    fun add(promotion: Promotion) = discounts.add(promotion)
 
     fun total() = calculate().subtract(discount())
 
@@ -19,5 +21,9 @@ class Checkout(
         .reduce(BigDecimal.ZERO, BigDecimal::add)
         .setScale(2, RoundingMode.HALF_UP)
 
-    private fun discount() = BuyTwoForOnePound(SKU.B).apply(items)
+    private fun discount() = discounts
+        .stream()
+        .map { it.apply(items) }
+        .reduce(BigDecimal.ZERO, BigDecimal::add)
+        .setScale(2, RoundingMode.HALF_UP)
 }

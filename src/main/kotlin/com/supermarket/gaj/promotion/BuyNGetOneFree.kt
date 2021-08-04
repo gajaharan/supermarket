@@ -8,8 +8,8 @@ import java.util.stream.Collectors
 class BuyNGetOneFree(
     private val sku: SKU,
     private val multiBuyQuantity: Int
-) {
-    fun apply(items: List<Item>): BigDecimal {
+) : Promotion {
+    override fun apply(items: List<Item>): BigDecimal {
         if (items.isEmpty()) {
             return BigDecimal.ZERO.setScale(2)
         }

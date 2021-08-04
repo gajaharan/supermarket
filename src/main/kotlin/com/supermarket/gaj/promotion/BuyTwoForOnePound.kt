@@ -5,8 +5,8 @@ import com.supermarket.gaj.item.SKU
 import java.math.BigDecimal
 import java.util.stream.Collectors
 
-class BuyTwoForOnePound(private val sku: SKU) {
-    fun apply(items: List<Item>): BigDecimal {
+class BuyTwoForOnePound(private val sku: SKU) : Promotion {
+    override fun apply(items: List<Item>): BigDecimal {
         if (items.isEmpty()) {
             return BigDecimal.ZERO.setScale(2)
         }
