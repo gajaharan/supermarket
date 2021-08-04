@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 import java.math.BigDecimal
 
 class BuyNGetOneFreeTest {
-    private var buyNGetOneFree: BuyNGetOneFree = BuyNGetOneFree(3)
+    private var buyNGetOneFree: BuyNGetOneFree = BuyNGetOneFree(SKU.C, 3)
 
     @Test
     fun `apply 3Get1Free promotion when zero items scanned then should return no savings`() {
@@ -39,11 +39,23 @@ class BuyNGetOneFreeTest {
 
     @Test
     fun `apply Buy2Get1Free promotion when three same items are added then should return savings`() {
-        val buyTwoGetOneFree = BuyNGetOneFree(2)
+        val buyTwoGetOneFree = BuyNGetOneFree(SKU.C, 2)
         val items = mutableListOf<Item>()
         items.add(UnitItem(SKU.C, BigDecimal(0.25)))
         items.add(UnitItem(SKU.C, BigDecimal(0.25)))
         val actualSavings = buyTwoGetOneFree.apply(items)
+        Assertions.assertEquals(BigDecimal("0.25"), actualSavings)
+    }
+
+    @Test
+    fun `apply Buy3Get1Free promotion when three same items and two different items are added then should return savings`() {
+        val items = mutableListOf<Item>()
+        items.add(UnitItem(SKU.C, BigDecimal(0.25)))
+        items.add(UnitItem(SKU.A, BigDecimal(0.50)))
+        items.add(UnitItem(SKU.C, BigDecimal(0.25)))
+        items.add(UnitItem(SKU.A, BigDecimal(0.50)))
+        items.add(UnitItem(SKU.C, BigDecimal(0.25)))
+        val actualSavings = buyNGetOneFree.apply(items)
         Assertions.assertEquals(BigDecimal("0.25"), actualSavings)
     }
 }
