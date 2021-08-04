@@ -42,6 +42,9 @@ internal class CheckoutTest {
     @Test
     fun `checkout provides it's total value when containing a two items with 2for1pound promotion`() {
         val expectedTotal = "1.50";
+        val discounts = listOf(
+            BuyTwoForOnePound(SKU.B)
+        )
         val items = listOf(
             UnitItem(SKU.A, BigDecimal("0.50")),
             UnitItem(SKU.B, BigDecimal("0.60")),
@@ -49,6 +52,7 @@ internal class CheckoutTest {
         )
         val checkout = Checkout()
         items.forEach { checkout.scan(it) }
+        discounts.forEach { checkout.add(it) }
         assertEquals(BigDecimal(expectedTotal), checkout.total())
     }
 
