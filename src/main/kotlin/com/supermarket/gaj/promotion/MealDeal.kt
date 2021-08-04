@@ -6,7 +6,10 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.stream.Collectors
 
-class MealDeal(private val mealDealSKUs: Set<SKU>) : Promotion {
+class MealDeal(
+    private val mealDealSKUs: Set<SKU>,
+    private val mealDealPrice: BigDecimal
+) : Promotion {
 
     override fun apply(items: List<Item>): BigDecimal {
         val commonItems = items.stream()
@@ -22,6 +25,8 @@ class MealDeal(private val mealDealSKUs: Set<SKU>) : Promotion {
             return BigDecimal.ZERO.setScale(2)
         }
 
-        return mealTotal.subtract(BigDecimal(3.25))
+        val pairs = commonItems.size / 2
+
+        return mealTotal.subtract(mealDealPrice.multiply(BigDecimal(pairs)))
     }
 }
