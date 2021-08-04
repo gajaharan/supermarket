@@ -24,4 +24,16 @@ internal class TwoForOnePoundTest {
         val actualSavings = twoForOnePound.apply(items)
         Assertions.assertEquals(BigDecimal("0.20"), actualSavings)
     }
+
+    @Test
+    fun `apply promotion when four same items then should return savings`() {
+        val items = listOf(
+            UnitItem(SKU.B, BigDecimal("0.60")),
+            UnitItem(SKU.B, BigDecimal("0.60")),
+            UnitItem(SKU.B, BigDecimal("0.60")),
+            UnitItem(SKU.B, BigDecimal("0.60"))
+        )
+        val actualSavings = twoForOnePound.apply(items)
+        Assertions.assertEquals(BigDecimal("0.40"), actualSavings)
+    }
 }
