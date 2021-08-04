@@ -1,6 +1,5 @@
-package com.supermarket.gaj
+package com.supermarket.gaj.checkout
 
-import com.supermarket.gaj.checkout.Checkout
 import com.supermarket.gaj.item.SKU
 import com.supermarket.gaj.item.UnitItem
 import org.junit.jupiter.api.Assertions.assertEquals
