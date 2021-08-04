@@ -5,7 +5,7 @@ import com.supermarket.gaj.item.SKU
 import java.math.BigDecimal
 import java.util.stream.Collectors
 
-class TwoForOnePound(private val sku: SKU) {
+class BuyTwoForOnePound(private val sku: SKU) {
     fun apply(items: List<Item>): BigDecimal {
         if (items.isEmpty()) {
             return BigDecimal.ZERO.setScale(2)
@@ -19,14 +19,15 @@ class TwoForOnePound(private val sku: SKU) {
             return BigDecimal.ZERO.setScale(2)
         }
 
-        val pairs = commonItems.size / 2
+        val pairs = commonItems.size / BUY_QUANITY
         return commonItems.first().unitPrice()
-            .multiply(BigDecimal(2))
+            .multiply(BigDecimal(BUY_QUANITY))
             .subtract(FIXED_PRICE)
             .multiply(BigDecimal(pairs))
     }
 
     companion object {
         val FIXED_PRICE = BigDecimal("1.00")
+        const val BUY_QUANITY = 2
     }
 }
