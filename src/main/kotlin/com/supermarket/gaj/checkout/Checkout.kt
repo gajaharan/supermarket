@@ -9,9 +9,13 @@ class Checkout(
 ) {
     fun scan(item: Item) = items.add(item)
 
-    fun total(): BigDecimal = items
+    private fun calculate(): BigDecimal = items
         .stream()
         .map { it.unitPrice() }
         .reduce(BigDecimal.ZERO, BigDecimal::add)
         .setScale(2, RoundingMode.HALF_UP)
+
+    private fun discount() = BigDecimal.ZERO
+
+    fun total() = calculate().subtract(discount())
 }
