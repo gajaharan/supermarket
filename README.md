@@ -20,7 +20,7 @@
 
 * Add Fixtures and helper functions to reduce the duplicate creation of items and discount that are common between test classes
 
-* Covert some class test to parameterized test like BasketTest.
+* Covert some class test to parameterized test like CheckoutTest.
 
-* Added klint and detekt tool for static code analysis. Improving Kotlin code base.
+* Add klint and detekt tool for static code analysis. Improving Kotlin code base.
   https://github.com/detekt/detekt
